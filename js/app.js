@@ -24,7 +24,7 @@ submitButton.addEventListener("click", function() {
   const categoryId = document.getElementById("resourceId").value;
   const url = `https://swapi.co/api/${category}/${categoryId}`;
   const speciesUrl = `https://swapi.co/api/species/1`;
-  const filmsUrl = `https://swapi.co/api/films`
+  const filmsUrl = `https://swapi.co/api/films`;
   //switch statement to determine which category has been selected and then creates request based on the category
   switch (category) {
     case "people":
@@ -40,7 +40,7 @@ submitButton.addEventListener("click", function() {
         });
       });
       break;
-    case "planets":
+    case "planets": 
       request("GET", url, function() {
         const planetsData = JSON.parse(this.responseText);
         const terrain = document.createElement("p");
@@ -48,30 +48,31 @@ submitButton.addEventListener("click", function() {
         container.appendChild(h2).innerHTML = planetsData.name;
         container.appendChild(terrain).innerHTML = planetsData.terrain;
         container.appendChild(population).innerHTML = planetsData.population;
-        request("GET", filmsUrl, function(){
+        const planetFilmList = planetsData.films.map(function(element) {
+          request("GET", element, function() {
             const filmsData = JSON.parse(this.responseText);
-            const filmsDataResults = filmsData.results;
+            let filmsDataResults = filmsData.title;
             const filmsList = document.createElement("ul");
-            const mappedList = filmsDataResults.map(function(element){
-                let film = document.createElement("li");
-                container.appendChild(filmsList);
-                filmsList.appendChild(film).innerHTML = element.title
-                
-            });
-            
+
+            let film = document.createElement("li");
+            container.appendChild(filmsList);
+            filmsList.appendChild(film).innerHTML = filmsData.title;
+          });
         });
       });
+
       break;
     case "starships":
       request("GET", url, function() {
         const starshipsData = JSON.parse(this.responseText);
-        console.log(starshipsData)
+        console.log(starshipsData);
         const manufacturer = document.createElement("p");
         const starshipClass = document.createElement("p");
         container.appendChild(h2).innerHTML = starshipsData.name;
-        container.appendChild(manufacturer).innerHTML = starshipsData.manufacturer;
-        container.appendChild(starshipClass).innerHTML = starshipsData.starship_class;
-
+        container.appendChild(manufacturer).innerHTML =
+          starshipsData.manufacturer;
+        container.appendChild(starshipClass).innerHTML =
+          starshipsData.starship_class;
       });
       break;
   }
