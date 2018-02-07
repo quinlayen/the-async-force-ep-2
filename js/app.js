@@ -12,34 +12,34 @@ const submitButton = document.getElementById("requestResourceButton");
 submitButton.addEventListener("click", function() {
   const resourceType = document.getElementById("resourceType");
   let category = resourceType.options[resourceType.selectedIndex].text;
-  if (category === 'Person'){
-      category = 'people';
-  } else if (category === 'Planet'){
-      category = 'planets';
+  if (category === "Person") {
+    category = "people";
+  } else if (category === "Planet") {
+    category = "planets";
   } else {
-      category = 'starships';
+    category = "starships";
   }
   const categoryId = document.getElementById("resourceId").value;
   const url = `https://swapi.co/api/${category}/${categoryId}`;
 
-//switch statement to determine which category has been selected and then creates request based on the category
+  //switch statement to determine which category has been selected and then creates request based on the category
   switch (category) {
-    case category === "people":
+    case "people":
       request("GET", url, function() {
         const data = JSON.parse(this.responseText);
-        console.log(data)
+        console.log(data);
       });
       break;
-    case category === "planets":
-      request("GET", requestedURL, function() {
-          const data = JSON.parse(this.responseText);
-          console.log(data);
+    case "planets":
+      request("GET", url, function() {
+        const data = JSON.parse(this.responseText);
+        console.log(data);
       });
       break;
-    case category === "starships":
-      request("GET", requestedURL, function() {
-          const data = JSON.parse(this.responseText);
-          console.log(data);
+    case "starships":
+      request("GET", url, function() {
+        const data = JSON.parse(this.responseText);
+        console.log(data);
       });
       break;
   }
