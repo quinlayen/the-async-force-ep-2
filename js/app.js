@@ -50,13 +50,11 @@ submitButton.addEventListener("click", function() {
         container.appendChild(population).innerHTML = planetsData.population;
         const planetFilmList = planetsData.films.map(function(element) {
           request("GET", element, function() {
-            const filmsData = JSON.parse(this.responseText);
-            let filmsDataResults = filmsData.title;
+            const planetFilmsData = JSON.parse(this.responseText);
             const filmsList = document.createElement("ul");
-
             let film = document.createElement("li");
             container.appendChild(filmsList);
-            filmsList.appendChild(film).innerHTML = filmsData.title;
+            filmsList.appendChild(film).innerHTML = planetFilmsData.title;
           });
         });
       });
@@ -69,10 +67,14 @@ submitButton.addEventListener("click", function() {
         const manufacturer = document.createElement("p");
         const starshipClass = document.createElement("p");
         container.appendChild(h2).innerHTML = starshipsData.name;
-        container.appendChild(manufacturer).innerHTML =
-          starshipsData.manufacturer;
-        container.appendChild(starshipClass).innerHTML =
-          starshipsData.starship_class;
+        container.appendChild(manufacturer).innerHTML = starshipsData.manufacturer;
+        container.appendChild(starshipClass).innerHTML = starshipsData.starship_class;
+        const starshipsFilmList = starshipsData.films.map(function(element){
+          request("GET", element, function(){
+            const starshipsFilmsData = JSON.parse(this.responseText);
+            let films
+          });
+        });
       });
       break;
   }
