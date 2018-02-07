@@ -63,7 +63,7 @@ submitButton.addEventListener("click", function() {
     case "starships":
       request("GET", url, function() {
         const starshipsData = JSON.parse(this.responseText);
-        console.log(starshipsData);
+        //console.log(starshipsData.films[1]);
         const manufacturer = document.createElement("p");
         const starshipClass = document.createElement("p");
         container.appendChild(h2).innerHTML = starshipsData.name;
@@ -72,7 +72,11 @@ submitButton.addEventListener("click", function() {
         const starshipsFilmList = starshipsData.films.map(function(element){
           request("GET", element, function(){
             const starshipsFilmsData = JSON.parse(this.responseText);
-            let films
+            console.log(starshipsFilmsData)
+            const filmsList = document.createElement("ul");
+            let film = document.createElement("li");
+            container.appendChild(filmsList);
+            filmsList.appendChild(film).innerHTML = starshipsFilmsData.title;
           });
         });
       });
